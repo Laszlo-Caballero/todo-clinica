@@ -1,0 +1,35 @@
+generator client {
+    provider = "prisma-client"
+    output   = "../src/generated/prisma-client"
+}
+
+datasource db {
+    provider = "sqlite"
+}
+
+model Personal {
+    personalId     Int     @id @default(autoincrement())
+    nombreCompleto String
+    todos          Todos[]
+}
+
+model Todos {
+    todoId         Int        @id @default(autoincrement())
+    tarea          String
+    importancia    String?
+    fechaInicio    DateTime
+    tiempoEstimado String?
+    fechaFin       DateTime?
+    personalId     Int
+    personal       Personal   @relation(fields: [personalId], references: [personalId])
+    estado         EstadoEnum
+    fechaCreacion  DateTime   @default(now())
+}
+
+enum EstadoEnum {
+    APROBADA
+    FINALIZADA
+    POR_INICIAR
+    POR_VERIFICAR
+    POR_APROBAR
+}
