@@ -16,6 +16,9 @@ const buttonVariants = cva(
           " bg-success hover:bg-success-strong  focus:ring-success-medium ",
         danger: " bg-danger hover:bg-danger-strong  focus:ring-danger-medium ",
       },
+      icon: {
+        true: "inline-flex items-center text-xs px-3 py-1.5",
+      },
     },
     defaultVariants: {
       variant: "default",
@@ -32,6 +35,7 @@ export interface ButtonVariants
 
 export default function Button({
   variant,
+  icon,
   ref,
   className,
   ...props
@@ -39,7 +43,7 @@ export default function Button({
   return (
     <button
       ref={ref}
-      className={cx(buttonVariants({ variant }), className)}
+      className={cx(buttonVariants({ variant, icon }), className)}
       {...props}
     />
   );

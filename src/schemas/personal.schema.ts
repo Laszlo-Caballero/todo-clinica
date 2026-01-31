@@ -4,6 +4,7 @@ export const PersonalSchema = z.object({
   nombreCompleto: z
     .string()
     .min(3, "El nombre completo debe tener al menos 3 caracteres"),
+  personalId: z.number().optional(),
 });
 
 export type PersonalType = z.infer<typeof PersonalSchema>;

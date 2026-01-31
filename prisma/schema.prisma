@@ -8,8 +8,10 @@ datasource db {
 }
 
 model Personal {
-    personalId     Int     @id @default(autoincrement())
+    personalId     Int      @id @default(autoincrement())
     nombreCompleto String
+    estado         Boolean  @default(true)
+    fechaCreacion  DateTime @default(now())
     todos          Todos[]
 }
 

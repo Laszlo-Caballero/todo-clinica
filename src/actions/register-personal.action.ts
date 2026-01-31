@@ -9,6 +9,9 @@ export async function registerPersonal(
 ): Promise<PersonalFormState> {
   const fields = {
     nombreCompleto: formData.get("nombreCompleto")?.toString() || "",
+    personalId: formData.get("personalId")
+      ? Number(formData.get("personalId"))
+      : undefined,
   };
 
   const validateFields = PersonalSchema.safeParse(fields);
@@ -23,14 +26,23 @@ export async function registerPersonal(
     };
   }
 
-  await prisma.personal.create({
-    data: {
-      nombreCompleto: validateFields.data.nombreCompleto,
-    },
-  });
+  if (validateFields.data.personalId) {
+    await prisma.personal.update({
+      where: { personalId: validateFields.data.personalId },
+      data: {
+        nombreCompleto: validateFields.data.nombreCompleto,
+      },
+    });
+  } else {
+    await prisma.personal.create({
+      data: {
+        nombreCompleto: validateFields.data.nombreCompleto,
+      },
+    });
+  }
 
   return {
     status: true,
-    data: fields,
+    data: validateFields.data,
   };
 }
