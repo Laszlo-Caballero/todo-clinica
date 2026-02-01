@@ -1,6 +1,7 @@
 "use server";
 import prisma from "@/lib/prisma";
 import { TodoFormState, TodoSchema } from "@/schemas/todo.schema";
+import { updateTag } from "next/cache";
 import z from "zod";
 
 export async function registerTodo(
@@ -46,6 +47,8 @@ export async function registerTodo(
       tiempoEstimado: validateFields.data.tiempoEstimado,
     },
   });
+
+  updateTag("todos");
 
   return {
     status: true,
