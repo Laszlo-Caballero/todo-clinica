@@ -19,7 +19,7 @@ model Todos {
     todoId         Int        @id @default(autoincrement())
     tarea          String
     importancia    String?
-    fechaInicio    DateTime
+    fechaInicio    DateTime?
     tiempoEstimado String?
     fechaFin       DateTime?
     personalId     Int
